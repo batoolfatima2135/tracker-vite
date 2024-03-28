@@ -67,6 +67,7 @@ const createWindow = () => {
       })
       .then((sources) => {
         const dataURL = sources[0].thumbnail.toDataURL();
+
         ActiveWindow.initialize();
 
         if (!ActiveWindow.requestPermissions()) {
@@ -80,7 +81,7 @@ const createWindow = () => {
         mainWindow.webContents.send("screenshot-data", {
           time: time,
           dataURL: dataURL,
-          // activeWin: activeWin.title,
+          activeWin: activeWin.title,
           keypressCount: keypressCount,
           mouseClicks: mouseClicks,
         });

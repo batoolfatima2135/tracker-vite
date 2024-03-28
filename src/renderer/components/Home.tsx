@@ -36,7 +36,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       window.ipc.captureScreenshot();
-    }, 5000);
+    }, 30000);
 
     return () => {
       clearInterval(intervalId);
@@ -105,7 +105,7 @@ const Home: React.FC = () => {
                   className="w-full border border-black rounded-sm"
                 />
                 <figcaption className="font-semi-bold text-center font-semibold">
-                  {/* {data.activeWin} */}
+                  {data.activeWin}
                 </figcaption>
               </figure>
               <div className="flex justify-between  my-2">
