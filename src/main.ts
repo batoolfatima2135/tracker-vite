@@ -37,6 +37,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: path.join(__dirname, '../../tracker-icon.ico'),
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
@@ -88,10 +89,14 @@ const createWindow = () => {
         keypressCount = 0;
         mouseClicks = 0;
       });
-    new Notification({
-      title: "Screenshot",
-      body: "Screenshot taken sucessfully",
-    }).show();
+      const iconPath = path.join(__dirname, '../tracker-icon.ico');
+      console.log();
+      new Notification({
+        title: "Screenshot",
+        body: "Screenshot taken sucessfully",
+        urgency: "critical",
+        icon: iconPath,
+      }).show();
   });
 
   ipcMain.on("request-active-time", (event) => {
