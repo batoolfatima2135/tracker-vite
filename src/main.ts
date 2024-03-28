@@ -3,6 +3,7 @@ import {
   BrowserWindow,
   desktopCapturer,
   ipcMain,
+  net,
   Notification,
   powerMonitor,
 } from "electron";
@@ -21,6 +22,14 @@ let mouseClicks = 0;
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
+}
+
+const internetConnection = net.isOnline();
+if (!internetConnection) {
+  new Notification({
+    title: "Internet connection",
+    body: "Your internet connection is disconnected",
+  }).show();
 }
 
 const createWindow = () => {
@@ -58,16 +67,16 @@ const createWindow = () => {
       })
       .then((sources) => {
         const dataURL = sources[0].thumbnail.toDataURL();
-        // ActiveWindow.initialize();
+        ActiveWindow.initialize();
 
-        // if (!ActiveWindow.requestPermissions()) {
-        //   console.log(
-        //     "Error: You need to grant screen recording permission in System Preferences > Security & Privacy > Privacy > Screen Recording"
-        //   );
-        //   process.exit(0);
-        // }
+        if (!ActiveWindow.requestPermissions()) {
+          console.log(
+            "Error: You need to grant screen recording permission in System Preferences > Security & Privacy > Privacy > Screen Recording"
+          );
+          process.exit(0);
+        }
 
-        // const activeWin = ActiveWindow.getActiveWindow();
+        const activeWin = ActiveWindow.getActiveWindow();
         mainWindow.webContents.send("screenshot-data", {
           time: time,
           dataURL: dataURL,
