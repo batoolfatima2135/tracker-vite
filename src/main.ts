@@ -134,9 +134,6 @@ const createWindow = () => {
       }, 1000);
     }
   });
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
